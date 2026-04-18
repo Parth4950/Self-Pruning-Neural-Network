@@ -78,9 +78,9 @@ Experiments were run with:
 
 | Lambda | Test Accuracy (%) | Sparsity (%) |
 |--------|--------------------|--------------|
-| 1e-3   | XX.XX              | XX.XX        |
-| 1e-2   | XX.XX              | XX.XX        |
-| 1e-1   | XX.XX              | XX.XX        |
+| 0.001   | 53.26%              | 0.04%        |
+| 0.01   | 52.55%              | 0.07%        |
+| 0.1   | 53.77%              | 6.57%        |
 
 ## Observations
 

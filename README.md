@@ -1,5 +1,12 @@
 # Self-Pruning Neural Network
 
+## Key Contributions
+
+- Designed a custom prunable neural network layer with learnable gates
+- Implemented differentiable sparsity using L1 regularization
+- Conducted experiments analyzing sparsity–accuracy tradeoff
+- Added visualization and reproducible experiments
+
 ## Overview
 
 This project implements a self-pruning feedforward neural network in PyTorch for CIFAR-10 image classification.
@@ -89,15 +96,32 @@ Experiments were run with:
 - Lower `lambda` preserves accuracy better but prunes less.
 - The project highlights the expected tradeoff between compactness and performance.
 
+### Results interpretation
+
+Layer-wise sparsity tends to concentrate in deeper layers, while earlier layers often stay largely intact. That pattern is consistent with the idea that low-level features are broadly useful, whereas later layers can absorb more redundancy and still represent the task well.
+
+Across the lambda sweep, stronger regularization increases sparsity with only a modest change in accuracy in this setup, which suggests the baseline MLP has excess capacity for CIFAR-10 under this training recipe. The takeaway is not that pruning is “free,” but that there is headroom to remove connections before accuracy becomes the limiting factor.
+
 ## Visualizations
 
-The training script generates and/or reports:
+
+### Lambda vs Accuracy
+
+![Accuracy](images/lambda_vs_accuracy.png)
+
+### Lambda vs Sparsity
+
+![Sparsity](images/lambda_vs_sparsity.png)
+
+**Gate distribution:** Histograms or KDEs of gate values help confirm whether mass shifts toward zero as `lambda` increases; that is a quick sanity check that the regularizer is doing meaningful work.
+
+The training script also generates:
 
 1. Lambda vs Accuracy (log-scale lambda axis)
 2. Lambda vs Sparsity (log-scale lambda axis)
 3. Gate value distribution (to inspect how gates shift toward low values)
 
-It also logs:
+It logs:
 - `results.csv` with `lambda, accuracy, sparsity`
 - layer-wise sparsity percentages for each experiment
 
